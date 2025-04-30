@@ -1,8 +1,4 @@
-import {
-  MessagingService,
-  Publisher,
-  Subscriber,
-} from "nodejs-messaging-framework";
+import { MessagingService, Publisher, Consumer } from "rabbitmq-stream";
 import { UserCreatedEvent } from "./user.event";
 
 @MessagingService()
@@ -22,7 +18,7 @@ export class UserService {
     };
   }
 
-  @Subscriber("userCreatedInput")
+  @Consumer("userCreatedInput")
   async useCreatedInput(event: UserCreatedEvent) {
     if (event.id === "1") {
       throw new Error(`Cannot process event: ${event}`);

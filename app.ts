@@ -3,7 +3,7 @@ import v1Route from "./route";
 import { morganMiddleware } from "./src/middlewares/morgan";
 import dotenv from "dotenv";
 
-import { createMessagingContext } from "nodejs-messaging-framework";
+import { createMessagingContext } from "rabbitmq-stream";
 
 dotenv.config();
 
@@ -22,6 +22,7 @@ createMessagingContext({
   connection: {
     uri: process.env.RABBITMQ_URI || "amqp://localhost",
     reconnectStrategy: "fixed",
+    reconnectIntervalMs: 5000,
   },
   binder: {
     inputs: {
