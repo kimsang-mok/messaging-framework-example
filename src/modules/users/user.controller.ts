@@ -1,9 +1,12 @@
 import { Request, Response } from "express";
 import Controller from "@src/configs/controller";
-import userService, { UserService } from "./user.service";
+import { UserService } from "./user.service";
+import { inject, injectable } from "inversify";
+import { TYPES } from "@src/types";
 
+@injectable()
 export class UserController extends Controller {
-  constructor(private service: UserService) {
+  constructor(@inject(TYPES.UserService) private service: UserService) {
     super();
   }
 
@@ -29,5 +32,3 @@ export class UserController extends Controller {
     }
   );
 }
-
-export default new UserController(userService);
